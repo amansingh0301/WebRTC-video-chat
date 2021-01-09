@@ -2,6 +2,10 @@
 var HOST = location.origin.replace(/^http/, 'ws')
 var webSocket = new WebSocket(HOST);
 
+document.getElementById("local-video").autoplay = true;
+document.getElementById("local-video").playsInline = true;
+document.getElementById("local-video").muted = true;
+
 webSocket.onmessage = (event) => {
     handleSignallingData(JSON.parse(event.data))
 }
@@ -66,6 +70,9 @@ function startCall() {
                     "urls": ["stun:stun.l.google.com:19302", 
                     "stun:stun1.l.google.com:19302", 
                     "stun:stun2.l.google.com:19302"]
+                },
+                {
+                    "urls":"turn:numb.viagenie.ca", "username":"webrtc@live.com", "credential":"muazkh"
                 }
             ]
         }
