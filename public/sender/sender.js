@@ -16,7 +16,7 @@ function handleSignallingData(data) {
             createAndSendAnswerj()
             break
         case "candidate":
-            if(data.from == 'sender')
+            if(data.from == 'receiver')
                 peerConn.addIceCandidate(data.candidate)
             else
                 peerConnj.addIceCandidate(data.candidate)

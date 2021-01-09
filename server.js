@@ -71,6 +71,7 @@ webSocket.on('request', (req) => {
                 }
 
                 sendData({
+                    from:'receiver',
                     type: "candidate",
                     candidate: data.candidate
                 }, user.conn)
