@@ -78,6 +78,7 @@ function startCall() {
         peerConn.ontrack = (e) => {
             document.getElementById("remote-video")
             .srcObject = e.streams[0];
+            console.log(e.streams[0]);
         }
 
         peerConn.onicecandidate = ((e) => {
