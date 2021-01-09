@@ -115,12 +115,20 @@ var isAudio=true;
 function muteAudio() {
     isAudio = !isAudio
     localStream.getAudioTracks()[0].enabled = isAudio
+    if(isAudio==true)
+        document.getElementById('audio-btn').textContent = 'Mute Audio'
+    else
+        document.getElementById('audio-btn').textContent = 'Unmute Audio'
 }
 
 var isVideo=true;
 function muteVideo() {
     isVideo = !isVideo
     localStream.getVideoTracks()[0].enabled = isVideo
+    if(isVideo==true)
+        document.getElementById('video-btn').textContent = 'Mute Video'
+    else
+        document.getElementById('video-btn').textContent = 'Unmute Video'
 }
 
 
@@ -175,7 +183,6 @@ function sendDataj(data) {
 }
 
 
-let localStreamj
 let peerConnj
 let usernamej
 
@@ -205,8 +212,8 @@ function joinCall() {
         audio: true
     })
     .then((stream) => {
-        localStreamj = stream
-        document.getElementById("local-video").srcObject = localStreamj
+        localStream = stream
+        document.getElementById("local-video").srcObject = localStream
 
         let configuration = {
             iceServers: [
@@ -219,7 +226,7 @@ function joinCall() {
         }
 
         peerConnj = new RTCPeerConnection(configuration)
-        peerConnj.addStream(localStreamj)
+        peerConnj.addStream(localStream)
 
         peerConnj.onaddstream = (e) => {
             document.getElementById("remote-video")
