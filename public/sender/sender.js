@@ -140,32 +140,6 @@ function muteVideo() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function createAndSendAnswerj () {
     peerConnj.createAnswer((answer) => {
         peerConnj.setLocalDescription(answer)

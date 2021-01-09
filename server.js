@@ -88,6 +88,7 @@ webSocket.on('request', (req) => {
                 
                 user.candidates.forEach(candidate => {
                     sendData({
+                        from:'sender',
                         type: "candidate",
                         candidate: candidate
                     }, connection)
