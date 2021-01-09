@@ -71,11 +71,13 @@ function startCall() {
         }
 
         peerConn = new RTCPeerConnection(configuration)
-        peerConn.addStream(localStream)
+        localStream.getTracks().forEach(function(track) {
+            peerConn.addTrack(track, localStream);
+          });
 
-        peerConn.onaddstream = (e) => {
+        peerConn.ontrack = (e) => {
             document.getElementById("remote-video")
-            .srcObject = e.stream
+            .srcObject = e.streams[0];
         }
 
         peerConn.onicecandidate = ((e) => {
@@ -226,11 +228,13 @@ function joinCall() {
         }
 
         peerConnj = new RTCPeerConnection(configuration)
-        peerConnj.addStream(localStream)
+        localStream.getTracks().forEach(function(track) {
+            peerConnj.addTrack(track, localStream);
+          });
 
-        peerConnj.onaddstream = (e) => {
+        peerConnj.ontrack = (e) => {
             document.getElementById("remote-video")
-            .srcObject = e.stream
+            .srcObject = e.streams[0]
         }
 
         peerConnj.onicecandidate = ((e) => {
