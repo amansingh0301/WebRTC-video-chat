@@ -2,9 +2,7 @@
 var HOST = location.origin.replace(/^http/, 'ws')
 var webSocket = new WebSocket(HOST);
 
-document.getElementById("remote-video").autoplay = true;
-document.getElementById("remote-video").playsInline = true;
-document.getElementById("remote-video").muted = true;
+
 
 webSocket.onmessage = (event) => {
     handleSignallingData(JSON.parse(event.data))
@@ -86,6 +84,10 @@ function startCall() {
             document.getElementById("remote-video")
             .srcObject = e.streams[0];
             console.log(e.streams[0]);
+            document.getElementById("remote-video").autoplay = true;
+            document.getElementById("remote-video").playsInline = true;
+            document.getElementById("remote-video").muted = true;
+            console.log('changed')
         }
 
         peerConn.onicecandidate = ((e) => {
@@ -220,6 +222,9 @@ function joinCall() {
         peerConnj.ontrack = (e) => {
             document.getElementById("remote-video")
             .srcObject = e.streams[0]
+            document.getElementById("remote-video").autoplay = true;
+            document.getElementById("remote-video").playsInline = true;
+            document.getElementById("remote-video").muted = true;
         }
 
         peerConnj.onicecandidate = ((e) => {
