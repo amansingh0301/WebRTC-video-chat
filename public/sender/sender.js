@@ -73,7 +73,11 @@ function startCall() {
                     "stun:stun2.l.google.com:19302"]
                 },
                 {
-                    "urls":"turn:numb.viagenie.ca", "username":"webrtc@live.com", "credential":"muazkh"
+                    "urls": [
+                    "turn:13.250.13.83:3478?transport=udp"
+                    ],
+                    "username": "YzYNCouZM1mhqhmseWk6",
+                    "credential": "YzYNCouZM1mhqhmseWk6"
                 }
             ]
         }
@@ -209,7 +213,11 @@ function joinCall() {
                     "stun:stun2.l.google.com:19302"]
                 },
                 {
-                    "urls":"turn:numb.viagenie.ca", "username":"webrtc@live.com", "credential":"muazkh"
+                    "urls": [
+                    "turn:13.250.13.83:3478?transport=udp"
+                    ],
+                    "username": "YzYNCouZM1mhqhmseWk6",
+                    "credential": "YzYNCouZM1mhqhmseWk6"
                 }
             ]
         }
