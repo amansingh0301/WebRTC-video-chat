@@ -84,6 +84,10 @@ function startCall() {
             ]
         }
 
+
+        ///heeloooo
+        ///jck
+
         peerConn = new RTCPeerConnection(configuration)
         localStream.getTracks().forEach(function(track) {
             peerConn.addTrack(track, localStream);
@@ -94,6 +98,7 @@ function startCall() {
             .srcObject = e.streams[0];
             console.log(e.streams[0]);
             console.log('changed1')
+            alert('joined');
             document.getElementById("remote-video").autoplay = true;
             document.getElementById("remote-video").playsInline = true;
         }
