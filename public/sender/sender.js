@@ -3,7 +3,7 @@ var HOST = location.origin.replace(/^http/, 'ws')
 var webSocket = new WebSocket(HOST);
 
 document.getElementById("local-video").autoplay = true;
-document.getElementById("local-video").playsInline = true;
+document.getElementById("local-video").playsinline = true;
 document.getElementById("local-video").muted = true;
 
 
@@ -85,8 +85,6 @@ function startCall() {
         }
 
 
-        ///heeloooo
-        ///jck
 
         peerConn = new RTCPeerConnection(configuration)
         localStream.getTracks().forEach(function(track) {
@@ -97,10 +95,9 @@ function startCall() {
             document.getElementById("remote-video")
             .srcObject = e.streams[0];
             console.log(e.streams[0]);
-            console.log('changed1')
-            alert('joined');
+            console.log('changed')
             document.getElementById("remote-video").autoplay = true;
-            document.getElementById("remote-video").playsInline = true;
+            document.getElementById("remote-video").playsinline = true;
         }
 
         peerConn.onicecandidate = ((e) => {
@@ -240,7 +237,7 @@ function joinCall() {
             document.getElementById("remote-video")
             .srcObject = e.streams[0]
             document.getElementById("remote-video").autoplay = true;
-            document.getElementById("remote-video").playsInline = true;
+            document.getElementById("remote-video").playsinline = true;
         }
 
         peerConnj.onicecandidate = ((e) => {
