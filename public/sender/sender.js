@@ -2,9 +2,9 @@
 var HOST = location.origin.replace(/^http/, 'ws')
 var webSocket = new WebSocket(HOST);
 
-document.getElementById("local-video").autoplay = true;
-document.getElementById("local-video").playsInline = true;
-document.getElementById("local-video").muted = true;
+document.getElementById("remote-video").autoplay = true;
+document.getElementById("remote-video").playsInline = true;
+document.getElementById("remote-video").muted = true;
 
 webSocket.onmessage = (event) => {
     handleSignallingData(JSON.parse(event.data))
