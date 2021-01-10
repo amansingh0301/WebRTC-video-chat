@@ -92,6 +92,8 @@ function startCall() {
             .srcObject = e.streams[0];
             console.log(e.streams[0]);
             console.log('changed1')
+            document.getElementById("remote-video").autoplay = true;
+            document.getElementById("remote-video").playsInline = true;
         }
 
         peerConn.onicecandidate = ((e) => {
@@ -230,6 +232,8 @@ function joinCall() {
         peerConnj.ontrack = (e) => {
             document.getElementById("remote-video")
             .srcObject = e.streams[0]
+            document.getElementById("remote-video").autoplay = true;
+            document.getElementById("remote-video").playsInline = true;
         }
 
         peerConnj.onicecandidate = ((e) => {
