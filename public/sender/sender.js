@@ -18,7 +18,9 @@ function handleSignallingData(data) {
             break
         case "offer":
             peerConnj.setRemoteDescription(data.offer)
-            createAndSendAnswerj()
+            .then(() => {
+                createAndSendAnswerj()
+            })
             break
         case "candidate":
             if(data.from == 'receiver')
