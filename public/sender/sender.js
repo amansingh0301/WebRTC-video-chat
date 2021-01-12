@@ -103,14 +103,23 @@ function startCall() {
             peerConn.addTrack(track, localStream);
           });
 
-        peerConn.ontrack = (e) => {
-            document.getElementById("remote-video")
-            .srcObject = e.streams[0];
-            console.log('connected', e.streams[0]);
-            //console.log('changed')
-            document.getElementById("remote-video").autoplay = true;
-            document.getElementById("remote-video").playsinline = true;
-        }
+        // peerConn.ontrack = (e) => {
+        //     document.getElementById("remote-video")
+        //     .srcObject = e.streams[0];
+        //     console.log('connected', e.streams[0]);
+        //     //console.log('changed')
+        //     document.getElementById("remote-video").autoplay = true;
+        //     document.getElementById("remote-video").playsinline = true;
+        // }
+
+        const remoteStream = new MediaStream();
+        const remoteVideo = document.getElementById("remote-video");
+        remoteVideo.srcObject = remoteStream;
+
+        peerConn.addEventListener('track', async (event) => {
+            remoteStream.addTrack(event.track, remoteStream);
+            console.log('zero')
+        });
 
         peerConn.onicecandidate = ((e) => {
             if (e.candidate == null)
@@ -259,13 +268,22 @@ function joinCall() {
             peerConnj.addTrack(track, localStream);
           });
 
-        peerConnj.ontrack = (e) => {
-            document.getElementById("remote-video")
-            .srcObject = e.streams[0]
-            console.log('connected',e.streams[0])
-            document.getElementById("remote-video").autoplay = true;
-            document.getElementById("remote-video").playsinline = true;
-        }
+        // peerConnj.ontrack = (e) => {
+        //     document.getElementById("remote-video")
+        //     .srcObject = e.streams[0]
+        //     console.log('connected',e.streams[0])
+        //     document.getElementById("remote-video").autoplay = true;
+        //     document.getElementById("remote-video").playsinline = true;
+        // }
+
+        const remoteStream = new MediaStream();
+        const remoteVideo = document.getElementById("remote-video");
+        remoteVideo.srcObject = remoteStream;
+
+        peerConnj.addEventListener('track', async (event) => {
+            remoteStream.addTrack(event.track, remoteStream);
+            console.log('zero')
+        });
 
         peerConnj.onicecandidate = ((e) => {
             if (e.candidate == null)
