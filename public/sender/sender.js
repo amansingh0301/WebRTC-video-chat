@@ -51,8 +51,8 @@ function startCall() {
     })
     document.getElementById("video-call-div")
     .style.display = "inline"
-    //navigator.getWebcam = (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webKitGetUserMedia || navigator.moxGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
-    navigator.mediaDevices.getUserMedia({
+    //navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia).bind(navigator);
+    navigator.getUserMedia({
         video: {
             frameRate: 24,
             width: {
@@ -61,8 +61,7 @@ function startCall() {
             aspectRatio: 1.33333
         },
         audio: true
-    })
-    .then((stream) => {
+    },(stream) => {
         localStream = stream
         console.log('here');
         document.getElementById("local-video").srcObject = localStream
@@ -70,17 +69,30 @@ function startCall() {
         let configuration = {
             iceServers: [
                 {
-                    "urls": ["stun:stun.l.google.com:19302", 
-                    "stun:stun1.l.google.com:19302", 
-                    "stun:stun2.l.google.com:19302"]
-                },
-                {
-                    "urls": [
-                    "turn:13.250.13.83:3478?transport=udp"
-                    ],
-                    "username": "YzYNCouZM1mhqhmseWk6",
-                    "credential": "YzYNCouZM1mhqhmseWk6"
-                }
+                    'urls': 'stun:stun.l.google.com:19302'
+                  },
+                  {
+                    'urls': 'turn:192.158.29.39:3478?transport=udp',
+                    'credential': 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+                    'username': '28224511:1379330808'
+                  },
+                  {
+                    'urls': 'turn:192.158.29.39:3478?transport=tcp',
+                    'credential': 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+                    'username': '28224511:1379330808'
+                  }
+                // {
+                //     "urls": ["stun:stun.l.google.com:19302", 
+                //     "stun:stun1.l.google.com:19302", 
+                //     "stun:stun2.l.google.com:19302"]
+                // },
+                // {
+                //     "urls": [
+                //     "turn:13.250.13.83:3478?transport=udp"
+                //     ],
+                //     "username": "YzYNCouZM1mhqhmseWk6",
+                //     "credential": "YzYNCouZM1mhqhmseWk6"
+                // }
             ]
         }
 
@@ -94,8 +106,8 @@ function startCall() {
         peerConn.ontrack = (e) => {
             document.getElementById("remote-video")
             .srcObject = e.streams[0];
-            console.log(e.streams[0]);
-            console.log('changed')
+            console.log('connected', e.streams[0]);
+            //console.log('changed')
             document.getElementById("remote-video").autoplay = true;
             document.getElementById("remote-video").playsinline = true;
         }
@@ -110,21 +122,23 @@ function startCall() {
         })
 
         createAndSendOffer()
-    })
-    .catch((error) => {
+    },(error) => {
         console.log(error)
     })
 }
 
 function createAndSendOffer() {
-    peerConn.createOffer((offer) => {
-        sendData({
-            type: "store_offer",
-            offer: offer
+    peerConn.createOffer()
+    .then(offer => 
+        {
+            peerConn.setLocalDescription(offer)
+            sendData({
+                type: "store_offer",
+                offer: offer
+            })
         })
-
-        peerConn.setLocalDescription(offer)
-    }, (error) => {
+            
+    .catch((error) => {
         console.log(error)
     })
 }
@@ -196,8 +210,8 @@ function joinCall() {
     document.getElementById("video-call-div")
     .style.display = "inline"
 
-    //navigator.getWebcam = (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webKitGetUserMedia || navigator.moxGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
-    navigator.mediaDevices.getUserMedia({
+    //navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia).bind(navigator);
+    navigator.getUserMedia({
         video: {
             frameRate: 24,
             width: {
@@ -206,25 +220,37 @@ function joinCall() {
             aspectRatio: 1.33333
         },
         audio: true
-    })
-    .then((stream) => {
+    },(stream) => {
         localStream = stream
         document.getElementById("local-video").srcObject = localStream
 
         let configuration = {
             iceServers: [
                 {
-                    "urls": ["stun:stun.l.google.com:19302", 
-                    "stun:stun1.l.google.com:19302", 
-                    "stun:stun2.l.google.com:19302"]
-                },
-                {
-                    "urls": [
-                    "turn:13.250.13.83:3478?transport=udp"
-                    ],
-                    "username": "YzYNCouZM1mhqhmseWk6",
-                    "credential": "YzYNCouZM1mhqhmseWk6"
-                }
+                    'urls': 'stun:stun.l.google.com:19302'
+                  },
+                  {
+                    'urls': 'turn:192.158.29.39:3478?transport=udp',
+                    'credential': 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+                    'username': '28224511:1379330808'
+                  },
+                  {
+                    'urls': 'turn:192.158.29.39:3478?transport=tcp',
+                    'credential': 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+                    'username': '28224511:1379330808'
+                  }
+                // {
+                //     "urls": ["stun:stun.l.google.com:19302", 
+                //     "stun:stun1.l.google.com:19302", 
+                //     "stun:stun2.l.google.com:19302"]
+                // },
+                // {
+                //     "urls": [
+                //     "turn:13.250.13.83:3478?transport=udp"
+                //     ],
+                //     "username": "YzYNCouZM1mhqhmseWk6",
+                //     "credential": "YzYNCouZM1mhqhmseWk6"
+                // }
             ]
         }
 
@@ -236,6 +262,7 @@ function joinCall() {
         peerConnj.ontrack = (e) => {
             document.getElementById("remote-video")
             .srcObject = e.streams[0]
+            console.log('connected',e.streams[0])
             document.getElementById("remote-video").autoplay = true;
             document.getElementById("remote-video").playsinline = true;
         }
@@ -254,8 +281,7 @@ function joinCall() {
             type: "join_call"
         })
 
-    })
-    .catch((error) => {
+    },(error) => {
         console.log(error)
     })
 }
