@@ -116,10 +116,13 @@ function createAndSendOffer() {
     .then(offer => 
         {
             peerConn.setLocalDescription(offer)
-            sendData({
-                type: "store_offer",
-                offer: offer
+            .then(() => {
+                sendData({
+                    type: "store_offer",
+                    offer: offer
+                })
             })
+            
         })
             
     .catch((error) => {
@@ -258,9 +261,11 @@ function joinCall() {
 function createAndSendAnswerj () {
     peerConnj.createAnswer((answer) => {
         peerConnj.setLocalDescription(answer)
-        sendDataj({
-            type: "send_answer",
-            answer: answer
+        .then(() => {
+            sendDataj({
+                type: "send_answer",
+                answer: answer
+            })
         })
     }, error => {
         console.log(error)
