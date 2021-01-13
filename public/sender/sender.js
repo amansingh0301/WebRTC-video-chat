@@ -1,11 +1,11 @@
 var HOST = location.origin.replace(/^http/, 'ws')
 var webSocket = new WebSocket(HOST);
 
-// document.getElementById("local-video").autoplay = true;
-// document.getElementById("local-video").playsinline = true;
-// document.getElementById("local-video").muted = true;
-// document.getElementById("remote-video").playsinline=true;
-// document.getElementById("remote-video").autoplay=true;
+document.getElementById("local-video").autoplay = true;
+document.getElementById("local-video").playsinline = true;
+document.getElementById("local-video").muted = true;
+document.getElementById("remote-video").playsinline=true;
+document.getElementById("remote-video").autoplay=true;
 
 webSocket.onmessage = (event) => {
     handleSignallingData(JSON.parse(event.data))
@@ -52,13 +52,7 @@ function startCall() {
     document.getElementById("video-call-div")
     .style.display = "inline"
     navigator.mediaDevices.getUserMedia({
-        video: {
-            frameRate: 24,
-            width: {
-                min: 480, ideal: 720, max: 1280
-            },
-            aspectRatio: 1.33333
-        },
+        video: true,
         audio: true
     })
     .then((stream) => {
@@ -89,16 +83,16 @@ function startCall() {
           });
 
         peerConn.ontrack = (e) => {
-            var remoteStream = e.streams[0];
+            const remoteStream = e.streams[0];
             const remoteVideo = document.getElementById("remote-video");
-            
-            console.log('before : ',remoteStream)
+            remoteVideo.srcObject = remoteStream;
+            console.log('video received!')
+            console.log('video adding.')
             peerConn.addEventListener('track', async (event) => {
                 remoteStream.addTrack(event.track, remoteStream);
                 console.log('zero')
             });
-            console.log('after : ',remoteStream)
-            remoteVideo.srcObject = remoteStream;
+            console.log('video added')
         }
 
         peerConn.onicecandidate = ((e) => {
@@ -169,13 +163,7 @@ function joinCall() {
     document.getElementById("video-call-div")
     .style.display = "inline"
     navigator.mediaDevices.getUserMedia({
-        video: {
-            frameRate: 24,
-            width: {
-                min: 480, ideal: 720, max: 1280
-            },
-            aspectRatio: 1.33333
-        },
+        video: true,
         audio: true
     })
     .then((stream) => {
@@ -218,16 +206,17 @@ function joinCall() {
           });
 
         peerConnj.ontrack = (e) => {
-            var remoteStream = e.streams[0];
+            const remoteStream = e.streams[0];
             const remoteVideo = document.getElementById("remote-video");
-            
-            console.log('before : ',remoteStream)
+            remoteVideo.srcObject = remoteStream;
+            console.log('video received!')
+            console.log('video adding.')
             peerConnj.addEventListener('track', async (event) => {
                 remoteStream.addTrack(event.track, remoteStream);
                 console.log('zero')
             });
-            console.log('after : ',remoteStream)
-            remoteVideo.srcObject = remoteStream;
+            console.log('video added.')
+            
         }
 
         peerConnj.onicecandidate = ((e) => {
