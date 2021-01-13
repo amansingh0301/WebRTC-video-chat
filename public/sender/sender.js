@@ -79,17 +79,13 @@ function startCall() {
             peerConn.addTrack(track, localStream);
           });
 
-        peerConn.ontrack = (e) => {
-            // document.getElementById("remote-video").srcObject=e.streams[0];
-            const remoteStream = e.streams[0];
+          const remoteStream = new MediaStream();
             const remoteVideo = document.getElementById("remote-video");
             remoteVideo.srcObject = remoteStream;
-            peerConn.addEventListener('track', async (event) => {
-                remoteStream.addTrack(event.track, remoteStream);
-                console.log(event.track)
-            });
-            remoteVideo.playsinline=true;
-            remoteVideo.autoplay=true;
+
+        peerConn.ontrack = (e) => {
+            remoteStream.addTrack(e.track, remoteStream);
+                console.log(e.track)
         }
 
         peerConn.onicecandidate = ((e) => {
@@ -203,15 +199,15 @@ function joinCall() {
             peerConnj.addTrack(track, localStream);
           });
 
-        peerConnj.ontrack = (e) => {
-            // document.getElementById("remote-video").srcObject=e.streams[0]
-            const remoteStream =e.streams[0];
+          const remoteStream = new MediaStream();
             const remoteVideo = document.getElementById("remote-video");
             remoteVideo.srcObject = remoteStream;
-            peerConnj.addEventListener('track', async (event) => {
-                remoteStream.addTrack(event.track, remoteStream);
-                console.log(event.track)
-            });
+
+        peerConnj.ontrack = (e) => {
+            // document.getElementById("remote-video").srcObject=e.streams[0]
+            
+                remoteStream.addTrack(e.track, remoteStream);
+                console.log(e.track)
             
         }
 
