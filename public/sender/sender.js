@@ -91,12 +91,13 @@ function startCall() {
         peerConn.ontrack = (e) => {
             const remoteStream = e.streams[0];
             const remoteVideo = document.getElementById("remote-video");
-            remoteVideo.srcObject = remoteStream;
+            
             console.log('adding')
             peerConn.addEventListener('track', async (event) => {
                 remoteStream.addTrack(event.track, remoteStream);
                 console.log('zero')
             });
+            remoteVideo.srcObject = remoteStream;
         }
 
         peerConn.onicecandidate = ((e) => {
@@ -218,12 +219,13 @@ function joinCall() {
         peerConnj.ontrack = (e) => {
             const remoteStream = e.streams[0];
             const remoteVideo = document.getElementById("remote-video");
-            remoteVideo.srcObject = remoteStream;
+            
             console.log('adding')
             peerConnj.addEventListener('track', async (event) => {
                 remoteStream.addTrack(event.track, remoteStream);
                 console.log('zero')
             });
+            remoteVideo.srcObject = remoteStream;
         }
 
         peerConnj.onicecandidate = ((e) => {
