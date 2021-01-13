@@ -4,8 +4,8 @@ var webSocket = new WebSocket(HOST);
 document.getElementById("local-video").autoplay = true;
 document.getElementById("local-video").playsinline = true;
 document.getElementById("local-video").muted = true;
-document.getElementById("remote-video").playsinline=true;
-document.getElementById("remote-video").autoplay=true;
+// document.getElementById("remote-video").playsinline=true;
+// document.getElementById("remote-video").autoplay=true;
 
 webSocket.onmessage = (event) => {
     handleSignallingData(JSON.parse(event.data))
@@ -83,16 +83,16 @@ function startCall() {
           });
 
         peerConn.ontrack = (e) => {
-            document.getElementById("remote-video").srcObject=e.streams[0];
-            // const remoteStream = e.streams[0];
-            // const remoteVideo = document.getElementById("remote-video");
-            // remoteVideo.srcObject = remoteStream;
-            // console.log('video received!')
-            // console.log('video adding.')
-            // peerConn.addEventListener('track', async (event) => {
-            //     remoteStream.addTrack(event.track, remoteStream);
-            // });
-            // console.log('video added')
+            // document.getElementById("remote-video").srcObject=e.streams[0];
+            const remoteStream = e.streams[0];
+            const remoteVideo = document.getElementById("remote-video");
+            remoteVideo.srcObject = remoteStream;
+            console.log('video received!')
+            console.log('video adding.')
+            peerConn.addEventListener('track', async (event) => {
+                remoteStream.addTrack(event.track, remoteStream);
+            });
+            console.log('video added')
         }
 
         peerConn.onicecandidate = ((e) => {
@@ -206,16 +206,16 @@ function joinCall() {
           });
 
         peerConnj.ontrack = (e) => {
-            document.getElementById("remote-video").srcObject=e.streams[0]
-            // const remoteStream = e.streams[0];
-            // const remoteVideo = document.getElementById("remote-video");
-            // remoteVideo.srcObject = remoteStream;
-            // console.log('video received!')
-            // console.log('video adding.')
-            // peerConnj.addEventListener('track', async (event) => {
-            //     remoteStream.addTrack(event.track, remoteStream);
-            // });
-            // console.log('video added.')
+            // document.getElementById("remote-video").srcObject=e.streams[0]
+            const remoteStream = e.streams[0];
+            const remoteVideo = document.getElementById("remote-video");
+            remoteVideo.srcObject = remoteStream;
+            console.log('video received!')
+            console.log('video adding.')
+            peerConnj.addEventListener('track', async (event) => {
+                remoteStream.addTrack(event.track, remoteStream);
+            });
+            console.log('video added.')
             
         }
 
