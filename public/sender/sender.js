@@ -81,15 +81,18 @@ function startCall() {
             peerConn.addTrack(track, localStream);
           });
 
+          peerConn.onconnectionstatechange = (e) => {
+              console.log(peerConn.connectionState)
+          }
+
           const remoteStream = new MediaStream();
             const remoteVideo = document.getElementById("remote-video");
-            
+            remoteVideo.srcObject = remoteStream;
             remoteVideo.playsinline=true;
             remoteVideo.autoplay=true;
 
             peerConn.addEventListener('track', async (event) => {
                 remoteStream.addTrack(event.track, remoteStream);
-                remoteVideo.srcObject = remoteStream;
                 console.log('video received')
             });
 
@@ -210,16 +213,18 @@ function joinCall() {
         localStream.getTracks().forEach(function(track) {
             peerConnj.addTrack(track, localStream);
           });
+          peerConnj.onconnectionstatechange = (e) => {
+            console.log(peerConnj.connectionState)
+        }
 
             const remoteStream = new MediaStream();
             const remoteVideo = document.getElementById("remote-video");
-            
+            remoteVideo.srcObject = remoteStream;
             remoteVideo.playsinline=true;
             remoteVideo.autoplay=true;
 
             peerConnj.addEventListener('track', async (event) => {
                 remoteStream.addTrack(event.track, remoteStream);
-                remoteVideo.srcObject = remoteStream;
                 console.log('video received')
             });
 
