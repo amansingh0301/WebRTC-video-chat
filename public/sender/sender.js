@@ -62,9 +62,7 @@ function startCall() {
         let configuration = {
             iceServers: [
                 {
-                    "urls": ["stun:stun.l.google.com:19302", 
-                    "stun:stun1.l.google.com:19302", 
-                    "stun:stun2.l.google.com:19302"]
+                    "urls": ["stun:stun.l.google.com:19302"]
                 },
                 {
                     "urls": [
@@ -86,12 +84,10 @@ function startCall() {
             const remoteStream = e.streams[0];
             const remoteVideo = document.getElementById("remote-video");
             remoteVideo.srcObject = remoteStream;
-            console.log('video received!')
-            console.log('video adding.')
             peerConn.addEventListener('track', async (event) => {
                 remoteStream.addTrack(event.track, remoteStream);
+                console.log(event.track)
             });
-            console.log('video added')
             remoteVideo.playsinline=true;
             remoteVideo.autoplay=true;
         }
@@ -186,10 +182,11 @@ function joinCall() {
                 //     'credential': 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
                 //     'username': '28224511:1379330808'
                 //   }
+                // , 
+                //     "stun:stun1.l.google.com:19302", 
+                //     "stun:stun2.l.google.com:19302"
                 {
-                    "urls": ["stun:stun.l.google.com:19302", 
-                    "stun:stun1.l.google.com:19302", 
-                    "stun:stun2.l.google.com:19302"]
+                    "urls": ["stun:stun.l.google.com:19302"]
                 },
                 {
                     "urls": [
@@ -211,12 +208,10 @@ function joinCall() {
             const remoteStream =e.streams[0];
             const remoteVideo = document.getElementById("remote-video");
             remoteVideo.srcObject = remoteStream;
-            console.log('video received!')
-            console.log('video adding.')
             peerConnj.addEventListener('track', async (event) => {
                 remoteStream.addTrack(event.track, remoteStream);
+                console.log(event.track)
             });
-            console.log('video added.')
             
         }
 
