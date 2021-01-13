@@ -1,4 +1,3 @@
-
 var HOST = location.origin.replace(/^http/, 'ws')
 var webSocket = new WebSocket(HOST);
 
@@ -95,6 +94,8 @@ function startCall() {
                 remoteStream.addTrack(event.track, remoteStream);
                 console.log('zero')
             });
+            remoteVideo.playsinline=true;
+            remoteVideo.autoplay=true;
         }
 
         peerConn.onicecandidate = ((e) => {
@@ -221,6 +222,8 @@ function joinCall() {
                 remoteStream.addTrack(event.track, remoteStream);
                 console.log('zero')
             });
+            remoteVideo.playsinline=true;
+            remoteVideo.autoplay=true;
         }
 
         peerConnj.onicecandidate = ((e) => {
@@ -259,4 +262,3 @@ function sendDataj(data) {
     data.from = 'receiver'
     webSocket.send(JSON.stringify(data))
 }
-
