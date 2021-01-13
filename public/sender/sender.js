@@ -68,10 +68,10 @@ function startCall() {
                 },
                 {
                     "urls": [
-                    "turn:webrtcweb.com:7788"
-                    ],
-                    "username": "muazkh",
-                    "credential": "muazkh"
+                        "turn:13.250.13.83:3478?transport=udp"
+                        ],
+                        "username": "YzYNCouZM1mhqhmseWk6",
+                        "credential": "YzYNCouZM1mhqhmseWk6"
                 }
             ]
         }
@@ -191,16 +191,16 @@ function joinCall() {
                      "stun:stun2.l.google.com:19302"]
                 },
                 {
-                    "urls": [
-                        "turn:webrtcweb.com:7788"
-                        ],
-                        "username": "muazkh",
-                        "credential": "muazkh"
                     // "urls": [
-                    // "turn:13.250.13.83:3478?transport=udp"
-                    // ],
-                    // "username": "YzYNCouZM1mhqhmseWk6",
-                    // "credential": "YzYNCouZM1mhqhmseWk6"
+                    //     "turn:webrtcweb.com:7788"
+                    //     ],
+                    //     "username": "muazkh",
+                    //     "credential": "muazkh"
+                    "urls": [
+                    "turn:13.250.13.83:3478?transport=udp"
+                    ],
+                    "username": "YzYNCouZM1mhqhmseWk6",
+                    "credential": "YzYNCouZM1mhqhmseWk6"
                 }
             ]
         }
