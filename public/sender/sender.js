@@ -87,10 +87,9 @@ function startCall() {
             remoteVideo.playsinline=true;
             remoteVideo.autoplay=true;
 
-        peerConn.ontrack = (e) => {
-            remoteStream.addTrack(e.streams[0], remoteStream);
-                console.log(e.streams[0])
-        }
+            peerConn.addEventListener('track', async (event) => {
+                remoteStream.addTrack(event.track, remoteStream);
+            });
 
         peerConn.onicecandidate = ((e) => {
             if (e.candidate == null)
@@ -216,13 +215,17 @@ function joinCall() {
             remoteVideo.playsinline=true;
             remoteVideo.autoplay=true;
 
-        peerConnj.ontrack = (e) => {
-            // document.getElementById("remote-video").srcObject=e.streams[0]
+            peerConnj.addEventListener('track', async (event) => {
+                remoteStream.addTrack(event.track, remoteStream);
+            });
+
+        // peerConnj.ontrack = (e) => {
+        //     // document.getElementById("remote-video").srcObject=e.streams[0]
             
-                remoteStream.addTrack(e.streams[0], remoteStream);
-                console.log(e.streams[0])
+        //         remoteStream.addTrack(e.streams[0], remoteStream);
+        //         console.log(e.streams[0])
             
-        }
+        // }
 
         peerConnj.onicecandidate = ((e) => {
             if (e.candidate == null)
