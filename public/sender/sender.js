@@ -1,11 +1,11 @@
 var HOST = location.origin.replace(/^http/, 'ws')
 var webSocket = new WebSocket(HOST);
 
-document.getElementById("local-video").autoplay = true;
-document.getElementById("local-video").playsinline = true;
-document.getElementById("local-video").muted = true;
-document.getElementById("remote-video").playsinline=true;
-document.getElementById("remote-video").autoplay=true;
+// document.getElementById("local-video").autoplay = true;
+// document.getElementById("local-video").playsinline = true;
+// document.getElementById("local-video").muted = true;
+// document.getElementById("remote-video").playsinline=true;
+// document.getElementById("remote-video").autoplay=true;
 
 webSocket.onmessage = (event) => {
     handleSignallingData(JSON.parse(event.data))
@@ -89,14 +89,15 @@ function startCall() {
           });
 
         peerConn.ontrack = (e) => {
-            const remoteStream = e.streams[0];
+            var remoteStream = e.streams[0];
             const remoteVideo = document.getElementById("remote-video");
             
-            console.log('adding')
+            console.log('before : ',remoteStream)
             peerConn.addEventListener('track', async (event) => {
                 remoteStream.addTrack(event.track, remoteStream);
                 console.log('zero')
             });
+            console.log('after : ',remoteStream)
             remoteVideo.srcObject = remoteStream;
         }
 
@@ -217,14 +218,15 @@ function joinCall() {
           });
 
         peerConnj.ontrack = (e) => {
-            const remoteStream = e.streams[0];
+            var remoteStream = e.streams[0];
             const remoteVideo = document.getElementById("remote-video");
             
-            console.log('adding')
+            console.log('before : ',remoteStream)
             peerConnj.addEventListener('track', async (event) => {
                 remoteStream.addTrack(event.track, remoteStream);
                 console.log('zero')
             });
+            console.log('after : ',remoteStream)
             remoteVideo.srcObject = remoteStream;
         }
 
