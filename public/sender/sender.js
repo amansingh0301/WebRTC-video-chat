@@ -4,6 +4,8 @@ var webSocket = new WebSocket(HOST);
 document.getElementById("local-video").autoplay = true;
 document.getElementById("local-video").playsinline = true;
 document.getElementById("local-video").muted = true;
+document.getElementById("remote-video").playsinline=true;
+document.getElementById("remote-video").autoplay=true;
 
 webSocket.onmessage = (event) => {
     handleSignallingData(JSON.parse(event.data))
@@ -49,7 +51,7 @@ function startCall() {
     })
     document.getElementById("video-call-div")
     .style.display = "inline"
-    navigator.getUserMedia({
+    navigator.mediaDevices.getUserMedia({
         video: {
             frameRate: 24,
             width: {
@@ -58,7 +60,8 @@ function startCall() {
             aspectRatio: 1.33333
         },
         audio: true
-    },(stream) => {
+    })
+    .then((stream) => {
         localStream = stream
         console.log('here');
         document.getElementById("local-video").srcObject = localStream
@@ -94,8 +97,6 @@ function startCall() {
                 remoteStream.addTrack(event.track, remoteStream);
                 console.log('zero')
             });
-            remoteVideo.playsinline=true;
-            remoteVideo.autoplay=true;
         }
 
         peerConn.onicecandidate = ((e) => {
@@ -165,7 +166,7 @@ function joinCall() {
     usernamej = document.getElementById('username-input').value;
     document.getElementById("video-call-div")
     .style.display = "inline"
-    navigator.getUserMedia({
+    navigator.mediaDevices.getUserMedia({
         video: {
             frameRate: 24,
             width: {
@@ -174,7 +175,8 @@ function joinCall() {
             aspectRatio: 1.33333
         },
         audio: true
-    },(stream) => {
+    })
+    .then((stream) => {
         localStream = stream
         document.getElementById("local-video").srcObject = localStream
 
@@ -222,8 +224,6 @@ function joinCall() {
                 remoteStream.addTrack(event.track, remoteStream);
                 console.log('zero')
             });
-            remoteVideo.playsinline=true;
-            remoteVideo.autoplay=true;
         }
 
         peerConnj.onicecandidate = ((e) => {
@@ -241,7 +241,7 @@ function joinCall() {
         })
 
     },(error) => {
-        console.log(error)
+        console.log('inside : ',error)
     })
 }
 
