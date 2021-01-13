@@ -62,7 +62,9 @@ function startCall() {
         let configuration = {
             iceServers: [
                 {
-                    "urls": ["stun:stun.l.google.com:19302"]
+                    "urls": ["stun:stun.l.google.com:19302",
+                    "stun:stun1.l.google.com:19302", 
+                     "stun:stun2.l.google.com:19302"]
                 },
                 {
                     "urls": [
@@ -86,8 +88,8 @@ function startCall() {
             remoteVideo.autoplay=true;
 
         peerConn.ontrack = (e) => {
-            remoteStream.addTrack(e.track, remoteStream);
-                console.log(e.track)
+            remoteStream.addTrack(e.streams[0], remoteStream);
+                console.log(e.streams[0])
         }
 
         peerConn.onicecandidate = ((e) => {
@@ -184,7 +186,9 @@ function joinCall() {
                 //     "stun:stun1.l.google.com:19302", 
                 //     "stun:stun2.l.google.com:19302"
                 {
-                    "urls": ["stun:stun.l.google.com:19302"]
+                    "urls": ["stun:stun.l.google.com:19302",
+                    "stun:stun1.l.google.com:19302", 
+                     "stun:stun2.l.google.com:19302"]
                 },
                 {
                     "urls": [
@@ -215,8 +219,8 @@ function joinCall() {
         peerConnj.ontrack = (e) => {
             // document.getElementById("remote-video").srcObject=e.streams[0]
             
-                remoteStream.addTrack(e.track, remoteStream);
-                console.log(e.track)
+                remoteStream.addTrack(e.streams[0], remoteStream);
+                console.log(e.streams[0])
             
         }
 
