@@ -82,6 +82,8 @@ function startCall() {
           const remoteStream = new MediaStream();
             const remoteVideo = document.getElementById("remote-video");
             remoteVideo.srcObject = remoteStream;
+            remoteVideo.playsinline=true;
+            remoteVideo.autoplay=true;
 
         peerConn.ontrack = (e) => {
             remoteStream.addTrack(e.track, remoteStream);
@@ -202,6 +204,8 @@ function joinCall() {
           const remoteStream = new MediaStream();
             const remoteVideo = document.getElementById("remote-video");
             remoteVideo.srcObject = remoteStream;
+            remoteVideo.playsinline=true;
+            remoteVideo.autoplay=true;
 
         peerConnj.ontrack = (e) => {
             // document.getElementById("remote-video").srcObject=e.streams[0]
