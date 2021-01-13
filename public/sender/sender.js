@@ -89,6 +89,7 @@ function startCall() {
 
             peerConn.addEventListener('track', async (event) => {
                 remoteStream.addTrack(event.track, remoteStream);
+                console.log('video received')
             });
 
         peerConn.onicecandidate = ((e) => {
@@ -217,6 +218,7 @@ function joinCall() {
 
             peerConnj.addEventListener('track', async (event) => {
                 remoteStream.addTrack(event.track, remoteStream);
+                console.log('video received')
             });
 
         // peerConnj.ontrack = (e) => {
