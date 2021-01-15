@@ -68,10 +68,15 @@ function startCall() {
                 },
                 {
                     "urls": [
-                        "turn:13.250.13.83:3478?transport=udp"
-                        ],
-                        "username": "YzYNCouZM1mhqhmseWk6",
-                        "credential": "YzYNCouZM1mhqhmseWk6"
+                    "turn:numb.viagenie.ca"
+                    ],
+                    "username": "webrtc@live.com",
+                    "credential": "muazkh"
+                    
+                    // "urls": [
+                    //     "turn:64.233.165.127:19305?transport=udp",
+                    //     "turn:[2A00:1450:4010:C01::7F]:19305?transport=udp"
+                    //     ]
                 }
             ]
         }
@@ -99,6 +104,7 @@ function startCall() {
         peerConn.onicecandidate = ((e) => {
             if (e.candidate == null)
                 return
+            console.log('new candidate : ',e.candidate)
             sendData({
                 type: "store_candidate",
                 candidate: e.candidate
@@ -112,11 +118,14 @@ function startCall() {
 }
 
 function createAndSendOffer() {
+    console.log('creating Offer...')
     peerConn.createOffer()
     .then(offer => 
         {
+            console.log('Setting LocalDescription...')
             peerConn.setLocalDescription(offer)
             .then(() => {
+                console.log('Offer sent : ',offer)
                 sendData({
                     type: "store_offer",
                     offer: offer
@@ -198,16 +207,25 @@ function joinCall() {
                      "stun:stun2.l.google.com:19302"]
                 },
                 {
+                    "urls": [
+                        "turn:numb.viagenie.ca"
+                        ],
+                        "username": "webrtc@live.com",
+                        "credential": "muazkh"
+                    // "urls": [
+                    // "turn:13.250.13.83:3478?transport=udp"
+                    // ],
+                    // "username": "YzYNCouZM1mhqhmseWk6",
+                    // "credential": "YzYNCouZM1mhqhmseWk6"
                     // "urls": [
                     //     "turn:webrtcweb.com:7788"
                     //     ],
                     //     "username": "muazkh",
                     //     "credential": "muazkh"
-                    "urls": [
-                    "turn:13.250.13.83:3478?transport=udp"
-                    ],
-                    "username": "YzYNCouZM1mhqhmseWk6",
-                    "credential": "YzYNCouZM1mhqhmseWk6"
+                    // "urls": [
+                    // "turn:64.233.165.127:19305?transport=udp",
+                    // "turn:[2A00:1450:4010:C01::7F]:19305?transport=udp"
+                    // ]
                 }
             ]
         }
@@ -242,7 +260,8 @@ function joinCall() {
         peerConnj.onicecandidate = ((e) => {
             if (e.candidate == null)
                 return
-            
+        console.log('new candidate : ',e.candidate)
+
             sendDataj({
                 type: "send_candidate",
                 candidate: e.candidate
@@ -259,9 +278,12 @@ function joinCall() {
 }
 
 function createAndSendAnswerj () {
+    console.log('creating answer...')
     peerConnj.createAnswer((answer) => {
+        console.log('setting LocalDescription...')
         peerConnj.setLocalDescription(answer)
         .then(() => {
+            console.log('Answer sent : ',answer);
             sendDataj({
                 type: "send_answer",
                 answer: answer
